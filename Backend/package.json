@@ -1,0 +1,32 @@
+{
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0",
+    "mongodb": "^6.12.0",
+    "mongoose": "^8.9.5",
+    "nodemon": "^3.1.9"
+  },
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "esto es solo unja prueba de conocimientos}",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abril1Lucia/Prueba2.git"
+  },
+  "author": "Abril Lucia Castellanos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Abril1Lucia/Prueba2/issues"
+  },
+  "homepage": "https://github.com/Abril1Lucia/Prueba2#readme"
+}
