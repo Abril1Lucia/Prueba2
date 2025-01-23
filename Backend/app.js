@@ -3,6 +3,10 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors"
 
+//rutas
+
+import { empleadosRouter } from "./src/routes/Empleado.Routes.js";
+
 
 const app = express(); 
 dotenv.config(); 
@@ -12,6 +16,7 @@ app.use(cors())
 
 
 app.use(express.json());
+app.use('/empleados', empleadosRouter)
 
 
 app.listen(port, () => {
