@@ -1,7 +1,12 @@
+// imports 
 import mongoose from "mongoose";
 
+
+// plantilla de los datos
+
 const empleadoSchema = new mongoose.Schema ({
-    codigo:{type: Number, required:false},
+    // la info que quiere guardar
+    codigo:{type: Number, required:true},
     nombre: {type: String, required:true},
     apellido1: {type: String, required:true},
     apellido2: {type: String, required:true},

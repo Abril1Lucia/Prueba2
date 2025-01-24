@@ -1,36 +1,30 @@
-// se importa el modelo
-import { empleadoModel } from "../models/empleados.model.js";
+import { departamentoModel } from "../models/departamento.model.js";
 
 
-//se exportan las peticiones
-
-//post 
 
 
-export const crearEmpleado = async (req, res) => {
+export const crearDepartamento = async (req, res) => {
 
   //logica de la peticion post
     try {
 
-      const {codigo, nombre,  apellido1, apellido2, codigo_departamento} = req.body;
+      const {codigo, nombre} = req.body;
+  
       
-      const nuevoEmpleado = await empleadoModel.create({
+      const nuevoDepa = await departamentoModel.create({
         codigo,
-        nombre,  
-        apellido1, 
-        apellido2, 
-        codigo_departamento
+        nombre
       });
   
       return res.status(201).json({
-          mensaje: 'listo, ya agregue al nuevo',
-          datos: nuevoEmpleado
+          mensaje: 'listo, hice el nuevo departamento',
+          datos: nuevoDepa
       });
   
     } catch (error) {
       //errores
       return res.status(400).json({
-          mensaje: 'el empleado esta muy feo para la platafroma',
+          mensaje: 'no se pudo hacer... ',
           problema: error || error.message
       });
     }
@@ -39,28 +33,28 @@ export const crearEmpleado = async (req, res) => {
 
   
   // get
-  export const mostrarEmpleados = async (req, res) => {
+  export const mostrarDepartamento = async (req, res) => {
     //logica de la peticion get
     //  errores
     try {
 
-      let empleados = await empleadoModel.find();
-      if(empleados.length === 0){
+      let mostrar = await departamentoModel.find();
+      if(mostrar.length === 0){
           return res.status(200).json({
-              mensaje: 'tas solito we ;-;'
+              mensaje: 'no hay ni un departamento.'
           })
       }
   
       return res.status(200).json({
-          menasaje: 'por fin contrataron a alguien...',
-          numeroUsuarios: empleados.length,
-          datos: empleados
+          menasaje: 'finalmente creaste uno. ',
+          numeroUsuarios: mostrar.length,
+          datos: mostrar
       })
   
     } catch (error) {
       //  error si no hay nada
       return res.status(400).json({
-          mensaje: 'no hay nadie contratado...',
+          mensaje: 'no hay nada.',
           problema: error || error.message
       });
     }
@@ -70,7 +64,7 @@ export const crearEmpleado = async (req, res) => {
 
   //put
 
-export const ActualizarEmpleadoseById = async (request, response) => {
+export const ActualizarDepartamentoById = async (request, response) => {
 
   //logica de la peticion put
 
@@ -78,10 +72,10 @@ export const ActualizarEmpleadoseById = async (request, response) => {
     let idForput = request.params.id; //el parámetro id del producto que queremos actualizar
     let dataForUpdate = request.body; //pasarle la información actualizada
 
-    const Actualizar = await empleadoModel.findByIdAndUpdate(idForput, dataForUpdate);
+    const Departamentoactualizacion = await departamentoModel.findByIdAndUpdate(idForput, dataForUpdate);
 
     //  errores
-    if (!Actualizar) {
+    if (!Departamentoactualizacion) {
       return response.status(200).json({
         // validación cuando el id no es correcto o no existe
         mensaje: "no se pudo... pon bien el ID",
@@ -90,7 +84,7 @@ export const ActualizarEmpleadoseById = async (request, response) => {
 
     return response.status(200).json({
       mensaje: "ya, listo... ",
-      datos: Actualizar
+      datos: Departamentoactualizacion
     });
 
     //hubo errores al actualizar
@@ -110,7 +104,7 @@ export const ActualizarEmpleadoseById = async (request, response) => {
 
 //delete
 
-export const EliminarEmpleadosById = async (request, response) => {
+export const EliminarDepartamentoById = async (request, response) => {
 
 
   //logica de la peticion delete
@@ -121,16 +115,16 @@ try {
 
     let idForDelete = request.params.id;
 
-    await empleadoModel.findByIdAndDelete(idForDelete);
+    await departamentoModel.findByIdAndDelete(idForDelete);
 
     return response.status(200).json({
-        mensaje: "listo... el empleado fue ascendido a cliente"
+        mensaje: "listo... los empleados se eliminaron con un avadakedabra"
       });
     
 } catch (error) {
 
   //  errores
-  // Ocurrió un error al eliminar empleado
+  // Ocurrió un error al eliminar departamento
 
     return response.status(400).json({
         mensaje: "no se pudo eliminar :c",
