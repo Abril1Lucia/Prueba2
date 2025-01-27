@@ -4,14 +4,17 @@ import { CrearempleadosService } from '../../services/crearempleados.service';
 import { EliiminarempleadosService } from '../../services/eliiminarempleados.service';
 import { FormsModule } from '@angular/forms';
 import { EmpleadosCrear } from '../../interfaces/empleados-crear';
+import { NavComponent } from '../../component/nav/nav.component';
+
 
 @Component({
   selector: 'app-home',
-  imports: [FormsModule],
+  imports: [NavComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
+
 
   _dataService = inject(CrearempleadosService);
   _deleteService = inject(EliiminarempleadosService)

@@ -1,9 +1,23 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
 import { routes } from './app.routes';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { provideToastr } from 'ngx-toastr';
+import { provideAnimations } from '@angular/platform-browser/animations';
+//c importa el interceptor
+
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideClientHydration(withEventReplay())]
-};
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes),
+
+
+  provideToastr({
+    timeOut:200,
+    positionClass: 'toast-bottom'
+  }),
+
+  //hay errores de compatilidad we, tener presente eso o nos jodemos we ;-;
+
+  provideAnimations(),
+
+  ]
+}; 

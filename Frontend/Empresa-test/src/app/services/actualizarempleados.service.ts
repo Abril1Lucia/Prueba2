@@ -15,9 +15,4 @@ export class ActualizarempleadosService {
     return this._httpClient.put(this.URL_EMPLEADOS + '/actualizar' + id, empleadoActualizado);
   }
 
-
-  // putEmpleado(empleadoActualizado: EmpleadosCrear) {
-  //   return this._httpClient.put(`${this.URL_EMPLEADOS}/${empleadoActualizado.codigo}`, empleadoActualizado);
-  // }
-
 }
