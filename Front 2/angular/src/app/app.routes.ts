@@ -8,7 +8,7 @@ import { DespedirEmpleadosComponent } from './pages/despedir-empleados/despedir-
 export const routes: Routes = [
     {path: '', component: HomeComponent, title: 'Inicio'},
     {path: 'crear', component: CrearEmpleadosComponent, title: 'crear'},
-    {path: 'Actualizar', component: ActualizarEmpleadosComponent, title: 'Actualizar'},
-    {path: 'Eliminar', component: DespedirEmpleadosComponent, title: 'Eliminar'}
+    {path: 'actualizar', component: ActualizarEmpleadosComponent, title: 'actualizar'},
+    {path: 'eliminar', component: DespedirEmpleadosComponent, title: 'eliminar'}
 
 ];

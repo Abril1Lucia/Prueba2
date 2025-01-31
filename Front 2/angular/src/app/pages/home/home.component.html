@@ -1,11 +1,9 @@
-<app-nav></app-nav>
-
 
 <Div class="Fondo">
-    <h2 class="text-center text-uppercase">¡BIENVENIDOS ADMINS!</h2>
-    
+    <h2 class="text-center text-uppercase">Bienvenido</h2>
+
     <main class="container mt-5 border border-black rounded-3 my-5">
-        <h2>Usuarios Registrados</h2>
+        <h2>empleados Registrados</h2>
         <table class="table">
             <thead>
                 <tr>
@@ -13,25 +11,24 @@
                     <th scope="col">Imagen</th>
                     <th scope="col">Precio</th>
                     <th scope="col">Acciones</th>
+                    
                 </tr>
             </thead>
             <tbody class="table-group-divider" id="miTabla">
-                @for (producto of allProducts; track $index){
+                @for (producto of allDepartamentos; track $index){
                 <tr>
-                    <td>{{producto.codigo}}</td>
                     <td>{{producto.nombre}}</td>
-                    <td>{{producto.codigo_departamento}}</td>
+                    <td>${{producto.codigo}}</td>
                     <td class="acciones">
-                        <button type="button" class="btn btn-info mx-3">
+                        <button type="button" class="btn btn-info mx-3" (click)="identificarId(producto._id)">
                             <i class="bi bi-pencil-square"></i>
                             Editar
                         </button>
     
-                        <button type="button" class="btn btn-danger">
+                        <button type="button" class="btn btn-danger" (click)="borrarProducto(producto._id)">
                             <i class="bi bi-trash"></i>
                             Eliminar
                         </button>
-                    
                     </td>
                 </tr>
             }
@@ -42,36 +39,43 @@
     <div class="container my-5">
         <button type="button" class="btn btn-info" (click)="toggleDiv()">
             <i class="bi bi-plus-square"></i>
-            Agregar un nuevo producto
+            Agregar un nuevo departamento
         </button>
     </div>
     
     
     
+    <!-- <h3>MOSTRAR COMPONENTE</h3>
+    <div>
+        @for (producto of allProducts; track $index){
+        <li>{{producto.nombre}}/li>
+        <li>{{producto.imagen}}/li>
+        <li>{{producto.precio}}/li>
+        <li>{{producto._id}}/li>
+            <button (click)="borrarProducto(producto._id)">Borrar</button>
+            <button (click)="identificarId(producto._id)">Modificar</button>
+            }
+    </div> -->
     
     
     
     <div class="container">
     
         @if(showDiv){
-        <h3>{{ editMode ? 'Modificar Producto' : 'Crear Producto' }}</h3>
+        <h3>{{ editMode ? 'Modificar Producto' : 'Crear Departamento' }}</h3>
         <form class="py-5 col-lg-6">
             <div class="mb-3">
                 <label for="inputName" class="form-label">Nombre</label>
-                <input type="text" class="form-control" name="nombre" />
+                <input type="text" class="form-control" name="nombre" [(ngModel)]="nombre" />
             </div>
             <div class="mb-3">
-                <label for="inputImagen" class="form-label">Imagen</label>
-                <input type="text" class="form-control" name="imagen" />
-            </div>
-            <div class="mb-3">
-                <label for="inputPrecio" class="form-label">Precio</label>
-                <input type="number" class="form-control" name="description" />
+                <label for="inputImagen" class="form-label">codigo </label>
+                <input type="text" class="form-control" name="imagen" [(ngModel)]="codigo" />
             </div>
     
-            <button (click)="editMode ? modificarProducto() : crearDatos()" type="button"
+            <button (click)="editMode ? modificarDepartamento() : crearDatos()" type="button"
                 class="btn btn-primary bg-my-color col-12">
-                {{ editMode ? 'Modificar Producto' : 'Crear Producto' }}
+                {{ editMode ? 'Modificar Producto' : 'Crear Departamento' }}
             </button>
             <button (click)="toggleDiv()" type="button" class="btn btn-danger bg-my-color col-12 mt-3">
                 Cerrar
@@ -80,5 +84,9 @@
         }
     </div>
     
-    
+    <div class="btn-field">
+        <button id="signUp" routerLink="/crear" type="submit" class="btn">CONTRATAR EMPLEADO</button>
+     </div>
+
     </Div>
+    

@@ -1,43 +1,50 @@
 import { Component, inject } from '@angular/core';
-import { ActualizarempleadosService } from '../../services/actualizarempleados.service';
-import { CrearempleadosService } from '../../services/crearempleados.service';
-import { EliiminarempleadosService } from '../../services/eliiminarempleados.service';
 import { FormsModule } from '@angular/forms';
-import { EmpleadosCrear } from '../../interfaces/empleados-crear';
-import { NavComponent } from '../../component/nav/nav.component';
-
+import { Departamento } from '../../interfaces/departamento';
+import {ReactiveFormsModule, FormControl, FormGroup} from "@angular/forms"
+import { DepartamentoService } from '../../services/departamento.service';
+import { RouterLink } from '@angular/router';
+import { CrearempleadosService } from '../../services/crearempleados.service';
 
 @Component({
   selector: 'app-home',
-  imports: [NavComponent, FormsModule],
+  imports: [FormsModule, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
 
 
-  _dataService = inject(CrearempleadosService);
-  _deleteService = inject(EliiminarempleadosService)
-  _updateService = inject(ActualizarempleadosService)
-  allProducts: EmpleadosCrear[] = [];
+  _dataService = inject(DepartamentoService);
+  _servicio = inject(CrearempleadosService)
+  allDepartamentos: Departamento[] = [];
 
   codigo: string = '';
   nombre: string = '';
-  apellido1: string = '';
-  apellido2: string = '';
-  codigo_departamento: string = '';
   showDiv: boolean = false;
   editMode: boolean = false;  
   editProductId: string | undefined | null= null;
 
 
+  obtenerEmpleados() {
+    this._servicio.showEmpleados().subscribe({
+      next: (res: any) => {
+        console.log('res', res);
+        this.allDepartamentos = res;
+      },
+      error: (error) => {
+        console.error('Hubo un error', error);
+      }
+    });
+  }
+
 
 
    obtenerDatos() {
-    this._dataService.showEmpleados().subscribe({
+    this._dataService.showDepartamento().subscribe({
       next: (res: any) => {
         console.log('res', res);
-        this.allProducts = res;
+        this.allDepartamentos = res;
         // console.log(this.allProducts);
       },
       error: (error) => {
@@ -46,21 +53,19 @@ export class HomeComponent {
     });
   }
 
+
   crearDatos(){
-    if (this.codigo === '' || this.nombre === '' || this.apellido1 === '' || this.apellido2 === '' || this.codigo_departamento === '') {
+    if (this.codigo === '' || this.nombre === '') {
       alert('Ingrese todos los campos');
     } else{
 
-      const NuevoEmpleado: EmpleadosCrear = {
+      const NuevoEmpleado: Departamento = {
         codigo: this.codigo,
         nombre: this.nombre,
-        apellido1: this.apellido1,
-        apellido2: this.apellido2,
-        codigo_departamento: this.codigo_departamento,
       };
 
 
-      this._dataService.postUsuarios(NuevoEmpleado).subscribe({
+      this._dataService.postDepartamento(NuevoEmpleado).subscribe({
         next: (res: any) => {
           if (res) {
             console.log('res', res);
@@ -92,24 +97,21 @@ export class HomeComponent {
 
   
 
-  modificarProducto() {
+  modificarDepartamento() {
     console.log('Entré');
-    console.log(this.editProductId, this.codigo, this.nombre, this.apellido1, this.apellido2, this.codigo_departamento );
+    console.log(this.editProductId, this.codigo, this.nombre);
 
-    if (!this.codigo || !this.nombre || this.apellido1 || this.apellido2 || this.codigo_departamento) {
+    if (!this.codigo || !this.nombre) {
         alert('Ingrese todos los campos');
     } else if (this.editProductId) {
-        const empleadoActualizado: EmpleadosCrear = {
+        const departamentooActualizado: Departamento = {
           codigo: this.codigo,
           nombre: this.nombre,
-          apellido1: this.apellido1,
-          apellido2: this.apellido2,
-          codigo_departamento: this.codigo_departamento
         };
 
 
         
-        this._updateService.putEmpleado(empleadoActualizado, this.editProductId).subscribe({
+        this._dataService.putDepartamento(this.editProductId).subscribe({
             next: (res: any) => {
                 if (res) {
                     console.log('res', res);
@@ -129,10 +131,10 @@ export class HomeComponent {
 
 
 
-borrarProducto(id: string) {
+borrarProducto(id: string | undefined) {
   console.log('Producto a borrar:', id);
 
-  this._deleteService.ascenderCliente(id).subscribe({
+  this._dataService.eliminarDepartamento(id).subscribe({
       next: (res: any) => {
           if (res) {
               console.log('res', res);
@@ -153,9 +155,6 @@ toggleDiv() {
   if (!this.showDiv) {
     this.codigo = '';
     this.nombre = '';
-    this.apellido1 = '';
-    this.apellido2 = '';
-    this.codigo_departamento = '';
     this.showDiv = false;
     this.editMode = false;  
     this.editProductId= null;
@@ -165,9 +164,6 @@ toggleDiv() {
 limpiarCampos() {
   this.codigo === '';
   this.nombre === '';
-  this.apellido1 === '';
-  this.apellido2 === '';
-  this.codigo_departamento === '';
 }
 
 ngOnInit() {

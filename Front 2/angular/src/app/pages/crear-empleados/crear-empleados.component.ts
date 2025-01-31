@@ -44,10 +44,10 @@ _Router = inject(Router)
 
       nuevoUsuario = {
         codigo,
-    nombre,
-    apellido1,
-    apellido2,
-    codigo_departamento
+        nombre,
+        apellido1,
+        apellido2,
+        codigo_departamento
       }
 
 
