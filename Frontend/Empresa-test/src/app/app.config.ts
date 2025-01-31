@@ -3,6 +3,7 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideToastr } from 'ngx-toastr';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideHttpClient } from '@angular/common/http';
 //c importa el interceptor
 
 
@@ -19,5 +20,7 @@ export const appConfig: ApplicationConfig = {
 
   provideAnimations(),
 
+  provideHttpClient()
+  
   ]
 }; 
